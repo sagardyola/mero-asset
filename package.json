@@ -1,0 +1,23 @@
+{
+  "name": "meroasset",
+  "version": "1.0.0",
+  "description": "Property Management",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "author": "Sagar Dyola",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.9.10",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.2",
+    "nodemailer": "^6.4.6",
+    "password-hash": "^1.2.2",
+    "socket.io": "^2.3.0"
+  }
+}
