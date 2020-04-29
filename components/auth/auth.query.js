@@ -16,7 +16,7 @@ function create(data, cb) {
 function read(query) {
     return UserModel.findOne({
         $or: [{
-            username: query.username
+            userName: query.userName
         }, {
             email: query.email
         }]

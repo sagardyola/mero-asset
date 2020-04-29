@@ -5,7 +5,8 @@ const authQuery = require('./auth.query');
 const sender = require('./../../config/nodemailer.config');
 
 function login(req, res, next) {
-    authQuery.read(req.body)
+    authQuery
+        .read(req.body)
         .then(function (user) {
             var isMatch = passwordHash.verify(req.body.password, user.password);
             if (isMatch) {
@@ -23,7 +24,9 @@ function login(req, res, next) {
             }
         })
         .catch(function (err) {
-            return next(err);
+            return next({
+                msg: 'Invalid UN or PASS'
+            });
         })
 }
 
@@ -48,7 +51,7 @@ function forgotPassword(req, res, next) {
             }
 
             var mailData = {
-                name: user.username,
+                name: user.userName,
                 email: user.email,
                 link: req.headers.origin + '/auth/reset/' + user._id,
             }

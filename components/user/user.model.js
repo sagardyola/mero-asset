@@ -2,39 +2,64 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
-    name: String,
-    email: {
+    firstName: {
         type: String,
-        unique: true,
-        sparse: true //not check empty values unique
+        required: true,
+        trim: true
     },
-    username: {
+    lastName: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    userName: {
         type: String,
         required: true,
         unique: true,
         lowercase: true,
-        trim: true // remove whitespace
+        trim: true, // remove whitespace
+        sparse: true
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+        lowercase: true,
+        trim: true,
+        sparse: true //not check empty values unique
     },
     password: {
         type: String,
         required: true
     },
-    phoneNumber: Number,
+    gender: String,
     dob: Date,
+    phoneNumber: Number,
+    address: String,
+    image: String,
     status: {
         type: Boolean,
-        default: 'true'
+        default: true
     },
-    address: String,
+    isVerified: {
+        type: Boolean,
+        default: false
+    },
+    passwordResetExpiry: Date,
     role: {
         type: Number,
         default: 2 //1 for admin 2 for normal user 3 for visitor
-    },
-    passwordResetExpiry: Date
-
+    }
 }, {
     timestamps: true
 });
+
+UserSchema
+    .virtual("fullName")
+    .get(function () {
+        return this.firstName + " " + this.lastName;
+    })
+
 
 const UserModel = mongoose.model('user', UserSchema)
 module.exports = UserModel;

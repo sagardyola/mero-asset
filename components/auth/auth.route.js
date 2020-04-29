@@ -3,7 +3,7 @@ const authCtrl = require('./auth.controller');
 // const authenticate = require('./../../middlewares/authenticate');
 const upload = require('./../../middlewares/uploader');
 
-router.route('/')
+router.route('/login')
     .post(authCtrl.login)
 
 router.route('/register')
