@@ -1,29 +1,39 @@
 const UserModel = require('./../user/user.model');
 const mapUser = require('./../user/helpers/user.map');
 
-function create(data, cb) {
+function create(data) {
     var newUser = new UserModel({});
     var newMappedUser = mapUser(newUser, data);
-    newMappedUser.save(function (err, done) {
-        if (err) {
-            cb(err);
-        } else {
-            cb(null, done);
-        }
-    })
+    return newMappedUser.save();
 }
 
-function read(query) {
+function details(query, condition) {
+    if (condition == "userName") {
+        email = {
+            email: query.userName
+        };
+    } else {
+        email = {
+            email: query.email
+        }
+    }
     return UserModel.findOne({
         $or: [{
-            userName: query.userName
-        }, {
-            email: query.email
-        }]
+                userName: query.userName
+            },
+            email
+        ]
     })
 }
 
 module.exports = {
     create,
-    read
+    details
 }
+
+
+
+// details
+// create
+// update
+// delete

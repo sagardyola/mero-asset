@@ -6,43 +6,66 @@ const sender = require('./../../config/nodemailer.config');
 
 function login(req, res, next) {
     authQuery
-        .read(req.body)
-        .then(function (user) {
-            var isMatch = passwordHash.verify(req.body.password, user.password);
-            if (isMatch) {
-                var token = jwt.sign({
-                    id: user._id
-                }, config.jwtSecret);
-                res.status(200).json({
-                    user: user,
-                    token: token
-                });
+        .details(req.body, "userName")
+        .exec(function (err, user) {
+            if (err) {
+                return next(err);
+            }
+            if (user) {
+                var isMatch = passwordHash.verify(req.body.password, user.password);
+                if (isMatch) {
+                    var token = jwt.sign({
+                        id: user._id
+                    }, config.jwtSecret);
+                    res.status(200).json({
+                        user: user,
+                        token: token
+                    });
+                } else {
+                    next({
+                        msg: 'Invalid username or Password'
+                    });
+                }
             } else {
                 next({
-                    msg: 'Invalid username or Password'
-                });
+                    msg: 'Invalid UN or PASS'
+                })
             }
-        })
-        .catch(function (err) {
-            return next({
-                msg: 'Invalid UN or PASS'
-            });
         })
 }
 
 function register(req, res, next) {
     req.body.password = passwordHash.generate(req.body.password);
-    authQuery.create(req.body, function (err, saved) {
-        if (err) {
-            return next(err);
-        }
-        res.status(200).json(saved);
-    })
+    authQuery
+        .details(req.body, null)
+        .then(function (user) {
+            if (user.userName === req.body.userName) {
+                return next({
+                    msg: 'Username not available'
+                });
+            }
+
+            if (user.email === req.body.email) {
+                return next({
+                    msg: "Email not available"
+                });
+            }
+        })
+        .catch(function (err) {
+            authQuery
+                .create(req.body)
+                .then(function (saved) {
+                    res.status(200).json(saved);
+                })
+                .catch(function (err) {
+                    return next(err);
+                })
+        })
 }
 
 function forgotPassword(req, res, next) {
     authQuery
-        .read(req.body)
+        .details(req.body, "userName")
         .then(function (user) {
             if (!user) {
                 return next({

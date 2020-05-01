@@ -9,7 +9,7 @@ module.exports = function () {
     const router = require('express').Router();
     // router.use('/admin', adminRoute);
     router.use('/auth', authRoute);
-    // router.use('./user', authenticate, userRoute);
+    router.use('/user', authenticate, userRoute);
 
     return router;
 }

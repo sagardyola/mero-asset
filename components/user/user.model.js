@@ -54,12 +54,20 @@ const UserSchema = new Schema({
     timestamps: true
 });
 
-UserSchema
-    .virtual("fullName")
-    .get(function () {
-        return this.firstName + " " + this.lastName;
-    })
+// UserSchema
+//     .virtual("fullName")
+//     .get(function () {
+//         return this.firstName + " " + this.lastName;
+//     })
 
 
 const UserModel = mongoose.model('user', UserSchema)
 module.exports = UserModel;
+
+
+
+
+// gender: {
+//     type: String,
+//     enum: ['male', 'female', 'others'],
+// },
