@@ -30,12 +30,10 @@ function update(rental, body) {
             }
         });
     })
-
-
 }
 
 function remove(rentalId) {
-    return RentalModel.findByIdAndRemove(rentalId);
+    return RentalModel.deleteOne(rentalId);
 }
 
 module.exports = {

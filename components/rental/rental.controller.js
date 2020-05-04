@@ -42,7 +42,6 @@ function create(req, res, next) {
             msg: 'Invalid file format'
         });
     }
-
     if (req.file) {
         req.body.image = req.file.filename;
     }
@@ -59,7 +58,6 @@ function create(req, res, next) {
 }
 
 function update(req, res, next) {
-
     if (req.fileErr) {
         return next({
             msg: 'Invalid file format'
@@ -78,20 +76,13 @@ function update(req, res, next) {
                 .update(rental, req.body)
                 .then(function (updated) {
                     if (req.file) {
-                        fs.unlink(path.join(process.cwd(), 'public/images/' + oldImage), function (err, done) {
-                            if (err) {
-                                console.log('File removed err', err);
-                            } else {
-                                console.log('Removed');
-                            }
-                        })
+                        removeFile(oldImage)
                     }
                     res.status(200).json(updated);
                 })
                 .catch(function (err) {
                     return next(err);
                 })
-
         })
         .catch(function (err) {
             return next(err);
@@ -100,13 +91,33 @@ function update(req, res, next) {
 
 function remove(req, res, next) {
     rentalQuery
-        .remove(req.params.id)
-        .then(function (removed) {
-            res.status(200).json(removed);
+        .details(req.params.id)
+        .then(function (details) {
+            if (details.image) {
+                removeFile(details.image)
+            }
+            rentalQuery
+                .remove(details)
+                .then(function (removed) {
+                    res.status(200).json(removed);
+                })
+                .catch(function (err) {
+                    return next(err);
+                })
         })
         .catch(function (err) {
             return next(err);
         })
+}
+
+function removeFile(fileName) {
+    return fs.unlink(path.join(process.cwd(), 'public/images/' + fileName), function (err, done) {
+        if (err) {
+            console.log('File removed err', err);
+        } else {
+            console.log('Removed');
+        }
+    })
 }
 
 module.exports = {
