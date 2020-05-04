@@ -6,8 +6,15 @@ const upload = require('./../../middlewares/uploader');
 //     .post(userCtrl.profile)
 
 router.route('/')
-    .get(userCtrl.profile)
+    .get(userCtrl.details)
 
+
+router.route('/edit-profile')
+    .put(userCtrl.update)
+
+
+router.route('/delete-profile')
+    .delete(userCtrl.remove)
 
 
 module.exports = router;

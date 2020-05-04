@@ -9,6 +9,7 @@ mongoose.connect(config.conxnURL + config.dbName, {
 
 mongoose.connection.once('open', function () {
     console.log('DB connection OPEN');
+    console.log('<------------------------------>')
 });
 
 mongoose.connection.on('error', function (err) {

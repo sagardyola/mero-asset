@@ -8,6 +8,8 @@ function create(data) {
 }
 
 function details(query, condition) {
+    // console.log(UserModel.schema.path('gend').enumValues);
+
     if (condition == "userName") {
         email = {
             email: query.userName

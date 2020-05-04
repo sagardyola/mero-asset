@@ -32,7 +32,10 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
-    gender: String,
+    gender: {
+        type: String,
+        enum: ['Male', 'Female', 'Other'],
+    },
     dob: Date,
     phoneNumber: Number,
     address: String,

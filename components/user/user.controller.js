@@ -1,6 +1,6 @@
 const userQuery = require('./user.query');
 
-function profile(req, res, next) {
+function details(req, res, next) {
     userQuery
         .details(req.loggedInUser._id)
         .exec(function (err, user) {
@@ -17,7 +17,30 @@ function profile(req, res, next) {
         })
 }
 
+function update(req, res, next) {
+    userQuery
+        .update(req.loggedInUser, req.body)
+        .then(function (updated) {
+            res.json(updated);
+        })
+        .catch(function (err) {
+            return next(err);
+        })
+}
+
+function remove(req, res, next) {
+    userQuery
+        .remove(req.loggedInUser._id)
+        .then(function (removed) {
+            res.status(200).json(removed)
+        })
+        .catch(function (err) {
+            next(err);
+        })
+}
+
 module.exports = {
-    profile,
-    // editProfile
+    details,
+    update,
+    remove
 }
