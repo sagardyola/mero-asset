@@ -11,8 +11,8 @@ function map_rental_req(rental, rentalDetails) {
     if (rentalDetails.negotiable)
         rental.negotiable = rentalDetails.negotiable;
 
-    if (rentalDetails.area)
-        rental.area = rentalDetails.area;
+    if (rentalDetails.dimension)
+        rental.dimension = rentalDetails.dimension;
 
     if (rentalDetails.location)
         rental.location = rentalDetails.location;

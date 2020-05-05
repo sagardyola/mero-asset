@@ -27,7 +27,7 @@ const rentalSchema = new Schema({
     },
     price: Number,
     negotiable: Boolean,
-    area: Number,
+    dimension: Number,
     location: {
         type: String,
         required: true,

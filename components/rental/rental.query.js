@@ -14,9 +14,25 @@ function details(query) {
 }
 
 function create(data) {
-    var newRental = new RentalModel({});
-    var newMappedRental = mapRental(newRental, data);
-    return newMappedRental.save();
+
+    return new Promise(function (resolve, reject) {
+        RentalModel
+            .estimatedDocumentCount({}, function (err, count) {
+                if (err) {
+                    reject(err);
+                }
+                var newRental = new RentalModel({});
+                data.code = "ITM" + (count + 1);
+                var newMappedRental = mapRental(newRental, data);
+                newMappedRental.save(function (err, saved) {
+                    if (err) {
+                        reject(err)
+                    } else {
+                        resolve(saved)
+                    }
+                });
+            })
+    })
 }
 
 function update(rental, body) {
