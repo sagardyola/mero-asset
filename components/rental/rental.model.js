@@ -66,9 +66,7 @@ const rentalSchema = new Schema({
             'Commercial Property'
         ]
     },
-
     // In land and Commercial Property dont show looking for, lifestyle and room details
-
 
     // Looking For
     gender: {
