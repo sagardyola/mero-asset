@@ -1,7 +1,15 @@
 const UserModel = require('./../user/user.model');
 const mapUser = require('./../user/helpers/user.map');
 
-function create(data) {
+function getRegister() {
+    return new Promise(function (resolve, reject) {
+        resolve({
+            gender: UserModel.schema.path('gender').enumValues
+        });
+    })
+}
+
+function register(data) {
     var newUser = new UserModel({});
     var newMappedUser = mapUser(newUser, data);
     return newMappedUser.save();
@@ -29,7 +37,8 @@ function details(query, condition) {
 }
 
 module.exports = {
-    create,
+    getRegister,
+    register,
     details
 }
 

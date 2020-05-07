@@ -13,8 +13,21 @@ function details(query) {
         .findById(query);
 }
 
-function create(data) {
+function getCreate() {
+    return new Promise(function (resolve, reject) {
+        resolve({
+            itemFor: RentalModel.schema.path('itemFor').enumValues,
+            itemType: RentalModel.schema.path('itemType').enumValues,
+            gender: RentalModel.schema.path('gender').enumValues,
+            maritalStatus: RentalModel.schema.path('maritalStatus').enumValues,
+            overnightGuests: RentalModel.schema.path('overnightGuests').enumValues,
+            partyHabits: RentalModel.schema.path('partyHabits').enumValues,
+            smoker: RentalModel.schema.path('smoker').enumValues
+        });
+    })
+}
 
+function create(data) {
     return new Promise(function (resolve, reject) {
         RentalModel
             .estimatedDocumentCount({}, function (err, count) {
@@ -38,13 +51,14 @@ function create(data) {
 function update(rental, body) {
     return new Promise(function (resolve, reject) {
         var updatedMapRental = mapRental(rental, body);
-        updatedMapRental.save(function (err, updated) {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(updated);
-            }
-        });
+        updatedMapRental
+            .save(function (err, updated) {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(updated);
+                }
+            });
     })
 }
 
@@ -55,6 +69,7 @@ function remove(rentalId) {
 module.exports = {
     listAll,
     details,
+    getCreate,
     create,
     update,
     remove

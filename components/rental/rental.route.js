@@ -6,6 +6,7 @@ router.route('/')
     .get(rentalCtrl.listAll)
 
 router.route('/create')
+    .get(rentalCtrl.getCreate)
     .post(upload.single('img'), rentalCtrl.create)
 
 router.route('/:id')

@@ -34,6 +34,17 @@ function login(req, res, next) {
         })
 }
 
+function getRegister(req, res, next) {
+    authQuery
+        .getRegister()
+        .then(function (done) {
+            res.json(done);
+        })
+        .catch(function (err) {
+            return next(err);
+        })
+}
+
 function register(req, res, next) {
     req.body.password = passwordHash.generate(req.body.password);
     authQuery
@@ -53,7 +64,7 @@ function register(req, res, next) {
         })
         .catch(function (err) {
             authQuery
-                .create(req.body)
+                .register(req.body)
                 .then(function (saved) {
                     res.status(200).json(saved);
                 })
@@ -146,6 +157,7 @@ function prepareMail(data) {
 
 module.exports = {
     login,
+    getRegister,
     register,
     forgotPassword,
     resetPassword

@@ -36,6 +36,17 @@ function details(req, res, next) {
         })
 }
 
+function getCreate(req, res, next) {
+    rentalQuery
+        .getCreate()
+        .then(function (done) {
+            res.json(done);
+        })
+        .catch(function (err) {
+            return next(err);
+        })
+}
+
 function create(req, res, next) {
     if (req.fileErr) {
         return next({
@@ -123,6 +134,7 @@ function removeFile(fileName) {
 module.exports = {
     details,
     listAll,
+    getCreate,
     create,
     update,
     remove

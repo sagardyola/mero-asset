@@ -7,6 +7,7 @@ router.route('/login')
     .post(authCtrl.login)
 
 router.route('/register')
+    .get(authCtrl.getRegister)
     .post(authCtrl.register)
 
 router.route('/forgot-password')
