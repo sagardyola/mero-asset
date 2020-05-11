@@ -5,6 +5,9 @@ function listAll(query) {
     return RentalModel
         .find({
             user: query
+        })
+        .sort({
+            _id: -1
         });
 }
 
@@ -37,6 +40,8 @@ function create(data) {
                 var newRental = new RentalModel({});
                 data.code = "ITM" + (count + 1);
                 var newMappedRental = mapRental(newRental, data);
+
+                // setTimeout(function () {
                 newMappedRental.save(function (err, saved) {
                     if (err) {
                         reject(err)
@@ -44,6 +49,10 @@ function create(data) {
                         resolve(saved)
                     }
                 });
+                // }, 1000);
+
+
+
             })
     })
 }

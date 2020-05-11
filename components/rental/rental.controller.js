@@ -8,7 +8,7 @@ function listAll(req, res, next) {
         .then(function (rentalList) {
             if (rentalList.length == 0) {
                 return next({
-                    msg: 'Not found'
+                    msg: 'Not ads posted yet'
                 })
             }
             res.status(200).json(rentalList);
