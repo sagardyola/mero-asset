@@ -55,8 +55,8 @@ app.use(express.urlencoded({
 app.use(express.json());
 app.use(cors());
 
-app.use(express.static('files')); //internally view file ley access garnu paryo bhaney
-app.use('/file', express.static(path.join(__dirname, 'files'))); //external client end point provided to view file
+app.use(express.static('public')); //internally view file ley access garnu paryo bhaney
+app.use('/file', express.static(path.join(__dirname, 'public'))); //external client end point provided to view file
 app.use('/api', apiRouter);
 
 app.use(function (req, res, next) {
