@@ -13,7 +13,10 @@ function listAll(query) {
 
 function details(query) {
     return RentalModel
-        .findById(query);
+        .findById(query)
+        .populate('user', {
+            userName: 1
+        });
 }
 
 function getCreate() {

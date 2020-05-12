@@ -83,6 +83,7 @@ function update(req, res, next) {
         .details(req.params.id)
         .then(function (rental) {
             var oldImage = rental.image;
+            req.body.user = req.loggedInUser._id;
             rentalQuery
                 .update(rental, req.body)
                 .then(function (updated) {
