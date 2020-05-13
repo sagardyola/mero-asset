@@ -14,7 +14,7 @@ function map_user_req(obj1, obj2) {
     if (obj2.dob)
         obj1.dob = obj2.dob;
     if (obj2.phoneNumber)
-        obj1.phoneNumber = obj2.phone;
+        obj1.phoneNumber = obj2.phoneNumber;
     if (obj2.address)
         obj1.address = obj2.address;
     if (obj2.image)
