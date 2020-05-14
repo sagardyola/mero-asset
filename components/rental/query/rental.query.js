@@ -1,5 +1,15 @@
-const RentalModel = require('./rental.model');
-const mapRental = require('./helpers/rental.map');
+const RentalModel = require('./../models/rental.model');
+const mapRental = require('./../helpers/rental.map');
+
+function search(query) {
+    var condition = {};
+    var searchCondition = mapRental(condition, query);
+    return RentalModel
+        .find(searchCondition)
+        .populate('user', {
+            userName: 1
+        });
+}
 
 function listAll(query) {
     return RentalModel
@@ -53,9 +63,6 @@ function create(data) {
                     }
                 });
                 // }, 1000);
-
-
-
             })
     })
 }
@@ -79,6 +86,7 @@ function remove(rentalId) {
 }
 
 module.exports = {
+    search,
     listAll,
     details,
     getCreate,

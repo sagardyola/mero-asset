@@ -1,6 +1,6 @@
 const router = require('express').Router();
-const rentalCtrl = require('./rental.controller');
-const upload = require('./../../middlewares/uploader');
+const rentalCtrl = require('./../controllers/rental.controller');
+const upload = require('./../../../middlewares/uploader');
 
 router.route('/')
     .get(rentalCtrl.listAll)

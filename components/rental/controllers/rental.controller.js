@@ -1,4 +1,4 @@
-const rentalQuery = require('./rental.query');
+const rentalQuery = require('./../query/rental.query');
 const fs = require('fs');
 const path = require('path');
 
