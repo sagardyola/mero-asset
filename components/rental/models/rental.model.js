@@ -50,8 +50,6 @@ const rentalSchema = new Schema({
             'Homestay',
             'Roommate'
         ],
-
-        //HOmestay and roommate ma only first 4 options
     },
 
     itemType: {
@@ -66,7 +64,6 @@ const rentalSchema = new Schema({
             'Commercial Property'
         ]
     },
-    // In land and Commercial Property dont show looking for, lifestyle and room details
 
     // Looking For
     gender: {
