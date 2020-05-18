@@ -2,9 +2,6 @@ function map_rental_req(rental, rentalDetails) {
     if (rentalDetails.code)
         rental.code = rentalDetails.code;
 
-    if (rentalDetails.title)
-        rental.title = rentalDetails.title;
-
     if (rentalDetails.price)
         rental.price = rentalDetails.price;
 

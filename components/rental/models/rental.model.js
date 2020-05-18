@@ -20,11 +20,6 @@ const rentalSchema = new Schema({
         unique: true,
         sparse: true
     },
-    title: {
-        type: String,
-        required: true,
-        trim: true
-    },
     price: Number,
     negotiable: Boolean,
     dimension: Number,
