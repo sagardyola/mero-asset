@@ -3,7 +3,9 @@ const mapUser = require('./helpers/user.map');
 
 function details(condition) {
     return UserModel
-        .findOne(condition);
+        .findOne({
+            userName: condition
+        });
 }
 
 function update(user, body) {
@@ -14,8 +16,6 @@ function update(user, body) {
 function remove(userId) {
     return UserModel.findByIdAndRemove(userId);
 }
-
-
 
 module.exports = {
     details,

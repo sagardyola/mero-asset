@@ -2,7 +2,7 @@ const userQuery = require('./user.query');
 
 function details(req, res, next) {
     userQuery
-        .details(req.loggedInUser._id)
+        .details(req.params.id)
         .exec(function (err, user) {
             if (err) {
                 return next(err)
